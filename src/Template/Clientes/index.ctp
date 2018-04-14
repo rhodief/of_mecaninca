@@ -1,4 +1,7 @@
-<h1>Clientes</h1>
+<div class="d-flex">
+  <div class="mr-auto p-2"><h1>Clientes</h1></div>
+  <div class="p-2"><a href="<?= $this->Url->Build(['controller'=>'clientes', 'action'=>"add"]) ?>" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Cadastrar</a></div>
+</div>
 <?php //debug($clientes)  ?>
 <?= $this->Form->create(null, ['type'=>'get']) ?>
     <div class="form-group">
@@ -8,8 +11,9 @@
     <?= $this->Form->button(__('Procurar'), ['class'=>'btn btn-primary']) ?>
     </div>
 <?= $this->Form->end() ?>
-
+<?php $norecord = true; ?>
 <div class="list-group">
+<?php if(isset($clientes)) {?>    
 <?php foreach ($clientes as $cliente): ?>
   <a href="<?= $this->Url->Build(['controller'=>'clientes', 'action'=>'view', $cliente->id]) ?>" class="list-group-item list-group-item-action flex-column align-items-start">
     <div class="d-flex w-100 justify-content-between">
@@ -30,9 +34,12 @@
     <p class="mb-1"><?= 'Telefone Celular: ' . $cliente->telefone_celular ?></p>
     <small>Donec id elit non mi porta.</small>
   </a>
+  <?php $norecord = false; ?>
   <?php endforeach; ?>
 </div>
-
+<?php if($norecord){
+    echo "<h3>Cliente Não Encontrado</h3>";
+}; ?>
 <div class="paginator">
         <ul class="pagination">
             <?= $this->Paginator->first('<< ' . __('first')) ?>
@@ -43,4 +50,5 @@
         </ul>
         <p><?= $this->Paginator->counter(['format' => __('Página {{page}} de {{pages}}, mostrando {{current}} cliente(s) de um total de {{count}}')]) ?></p>
 </div>
+<?php } ?>
    

@@ -24,8 +24,9 @@ class ClientesController extends AppController
         $clientes;
         if($s){
             $query = $this->Clientes->find()->where(['nome ILIKE' => '%'.$s.'%'])->contain(['PessoasFisicas', 'PessoasJuridicas']);
+            $this->set('clientes', $this->paginate($query));
         }
-        $this->set('clientes', $this->paginate($query));
+        
         $this->set(compact('s'));
     }
 
