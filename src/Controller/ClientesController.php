@@ -20,9 +20,13 @@ class ClientesController extends AppController
      */
     public function index()
     {
-        $clientes = $this->paginate($this->Clientes);
-
-        $this->set(compact('clientes'));
+        $s = $this->request->getQuery('s');
+        $clientes;
+        if($s){
+            $query = $this->Clientes->find()->where(['nome ILIKE' => '%'.$s.'%'])->contain(['PessoasFisicas', 'PessoasJuridicas']);
+        }
+        $this->set('clientes', $this->paginate($query));
+        $this->set(compact('s'));
     }
 
     /**
@@ -103,5 +107,12 @@ class ClientesController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function list()
+    {
+        $clientes = $this->paginate($this->Clientes);
+
+        $this->set(compact('clientes'));
     }
 }
