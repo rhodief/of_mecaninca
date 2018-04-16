@@ -3,34 +3,47 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\OrdensDeServico $ordensDeServico
  */
+//debug($carros->toArray());
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Ordens De Servico'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Clientes'), ['controller' => 'Clientes', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Cliente'), ['controller' => 'Clientes', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Carros'), ['controller' => 'Carros', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Carro'), ['controller' => 'Carros', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Faturamento'), ['controller' => 'Faturamento', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Faturamento'), ['controller' => 'Faturamento', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="ordensDeServico form large-9 medium-8 columns content">
-    <?= $this->Form->create($ordensDeServico) ?>
-    <fieldset>
-        <legend><?= __('Add Ordens De Servico') ?></legend>
-        <?php
-            echo $this->Form->control('data_abertura');
-            echo $this->Form->control('data_alteracao');
-            echo $this->Form->control('data_cancelamento');
-            echo $this->Form->control('data_finalizacao');
-            echo $this->Form->control('situacao');
-            echo $this->Form->control('obs');
-            echo $this->Form->control('cliente_id', ['options' => $clientes]);
-            echo $this->Form->control('carro_id', ['options' => $carros]);
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
+<div class="d-flex">
+  <div class="mr-auto p-2"><h1>Nova Ordem de Serviço</h1></div>
+  <div class="p-2"><a href="<?= $this->Url->Build(['controller'=>'clientes', 'action'=>"view", $cliente->id]) ?>" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Detalhes Cliente</a></div>
 </div>
+
+<h2 class="display-3"><?= $cliente->nome ?></h2>
+<?php if(!empty($cliente->pessoas_juridica)){ ?>
+<h2 class="display-5">CNPJ: <?= $cliente->pessoas_juridica->cnpj ?></h2>
+<?php }else{ ?>
+    <h2 class="display-5">CPF: <?= $cliente->pessoas_fisica->cpf ?></h2>
+<?php } ?>
+
+
+
+<div class="d-flex">
+  <div class="mr-auto p-2"><h1>Veículos</h1></div>
+  <div class="p-2"><a href="<?= $this->Url->Build(['controller'=>'carros', 'action'=>"add"]) ?>" class="btn btn-success btn-lg active" role="button" aria-pressed="true">Cadastrar Veículo</a></div>
+</div>
+<?php if(!empty($carros)){?>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Placa</th>
+      <th scope="col">Marca</th>
+      <th scope="col">Modelo</th>
+      <th scope="col">Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+      <?php foreach ($carros as $os):?>
+    <tr>
+      <th scope="row"><input type="radio"></th>
+      <td> <?= $os->carro->placa ?> </td>
+      <td><?= $os->carro->marca ?></td>
+      <td><?= $os->carro->modelo ?></td>
+      <td><a href="<?= $this->Url->Build(['controller'=>'carros', 'action'=>"view", $os->carro->id]) ?>" class="btn btn-primary" role="button" aria-pressed="true">Detalhes</a></td>
+    </tr>
+<?php endforeach; ?>
+  </tbody>
+</table>
+<?php } ?>

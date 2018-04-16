@@ -49,7 +49,7 @@ class OrdensDeServicoController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($id = null)
     {
         $ordensDeServico = $this->OrdensDeServico->newEntity();
         if ($this->request->is('post')) {
@@ -61,9 +61,9 @@ class OrdensDeServicoController extends AppController
             }
             $this->Flash->error(__('The ordens de servico could not be saved. Please, try again.'));
         }
-        $clientes = $this->OrdensDeServico->Clientes->find('list', ['limit' => 200]);
-        $carros = $this->OrdensDeServico->Carros->find('list', ['limit' => 200]);
-        $this->set(compact('ordensDeServico', 'clientes', 'carros'));
+        $cliente = $this->OrdensDeServico->Clientes->get($id, ['contain'=> ['PessoasJuridicas', 'PessoasFisicas']]);
+        $carros = $this->OrdensDeServico->find()->contain('Carros')->distinct(['carro_id']);
+        $this->set(compact('ordensDeServico', 'cliente', 'carros'));
     }
 
     /**
