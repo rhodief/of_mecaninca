@@ -80,14 +80,7 @@ $cakeDescription = 'Chave de Rodas';
 
     <main role="main">
         <div class="container">
-        <?php if($this->Flash->render() != ''){ ?>
-          <div class="alert alert-warning alert-dismissible fade show" role="alert">
-          <?= $this->Flash->render() ?>
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-<?php } ?>
+        <?= $this->Flash->render() ?>
         <?= $this->fetch('content') ?>
         </div>
 

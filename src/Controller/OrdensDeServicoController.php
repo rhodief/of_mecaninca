@@ -49,21 +49,40 @@ class OrdensDeServicoController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add($id = null)
+    public function add()
     {
         $ordensDeServico = $this->OrdensDeServico->newEntity();
         if ($this->request->is('post')) {
-            $ordensDeServico = $this->OrdensDeServico->patchEntity($ordensDeServico, $this->request->getData());
+            $currentDate = date("Y-m-d H:i:s");
+            $data = $this->request->getData();
+            
+            $data['data_abertura'] = $currentDate;
+            $data['data_alteracao'] = $currentDate;
+            $data['situacao'] = 'PENDENTE';
+            
+            $ordensDeServico = $this->OrdensDeServico->patchEntity($ordensDeServico, $data);
             if ($this->OrdensDeServico->save($ordensDeServico)) {
-                $this->Flash->success(__('The ordens de servico has been saved.'));
+                $this->Flash->success(__('Ordem de Serviço Salva com Sucesso'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The ordens de servico could not be saved. Please, try again.'));
+            $this->Flash->error(__('Ordem de Serviço não pode ser salva'));
         }
-        $cliente = $this->OrdensDeServico->Clientes->get($id, ['contain'=> ['PessoasJuridicas', 'PessoasFisicas']]);
-        $carros = $this->OrdensDeServico->find()->contain('Carros')->distinct(['carro_id']);
-        $this->set(compact('ordensDeServico', 'cliente', 'carros'));
+        $cliente_id = $this->request->getQuery('cliente');
+        $carro_id = $this->request->getQuery('carro');
+        
+        if($cliente_id){
+            $cliente = $this->OrdensDeServico->Clientes->get($cliente_id, ['contain'=> ['PessoasJuridicas', 'PessoasFisicas']]);
+        }else{
+            $clientes = $this->OrdensDeServico->find()->contain(['PessoasJuridicas', 'PessoasFisicas'])->distinct(['cliente_id']);
+        }
+        if($carro_id){
+            $carro = $this->OrdensDeServico->Carros->get($carro_id);
+        }else{
+            $carros = $this->OrdensDeServico->find()->contain('Carros')->distinct(['carro_id'])->where(['cliente_id'=>$cliente_id]);
+        }
+        
+        $this->set(compact('ordensDeServico', 'cliente','clientes', 'carro', 'carros', 'carro_id', 'cliente_id'));
     }
 
     /**

@@ -49,14 +49,19 @@ class CarrosController extends AppController
     public function add()
     {
         $carro = $this->Carros->newEntity();
+        $cliente_id = $this->request->getQuery('cliente_id');
+
         if ($this->request->is('post')) {
             $carro = $this->Carros->patchEntity($carro, $this->request->getData());
-            if ($this->Carros->save($carro)) {
-                $this->Flash->success(__('The carro has been saved.'));
-
+            $result = $this->Carros->save($carro);
+            if ($result) {
+                $this->Flash->success(__('Carro Salvo com Sucesso'));
+                if($cliente_id){
+                    return $this->redirect(['controller'=>'OrdensDeServico','action' => 'add', '?'=>['cliente'=>$cliente_id, 'carro'=>$result->id]]);    
+                }
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The carro could not be saved. Please, try again.'));
+            $this->Flash->error(__('Carro não foi salvo. Tente novamente'));
         }
         $this->set(compact('carro'));
     }

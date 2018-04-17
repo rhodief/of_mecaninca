@@ -56,7 +56,7 @@
 
 <div class="d-flex">
   <div class="mr-auto p-2"><h1>Ordens de Serviço</h1></div>
-  <div class="p-2"><a href="<?= $this->Url->Build(['controller'=>'ordens_de_servico', 'action'=>"add", $cliente->id]) ?>" class="btn btn-success btn-lg active" role="button" aria-pressed="true">Criar OS</a></div>
+  <div class="p-2"><a href="<?= $this->Url->Build(['controller'=>'ordens_de_servico', 'action'=>"add", '?'=> ['cliente'=> $cliente->id]]) ?>" class="btn btn-success btn-lg active" role="button" aria-pressed="true">Criar OS</a></div>
 </div>
 <?php if(!empty($cliente->ordens_de_servico)){?>
 <table class="table table-hover">

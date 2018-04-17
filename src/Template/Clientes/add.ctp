@@ -3,7 +3,7 @@
     var PFFields = `
     <div class="form-group">
     <label for="nome-id">Data Nascimento</label>
-    <?= $this->Form->text('telefone_fixo', ['id'=>'data-nasc-id', 'class'=>'form-control']) ?>
+    <?= $this->Form->text('data_nascimento', ['id'=>'data-nasc-id', 'class'=>'form-control']) ?>
     <small id="emailHelp" class="form-text text-muted"></small>
   </div>
     `;

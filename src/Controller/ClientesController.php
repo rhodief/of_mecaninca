@@ -77,8 +77,8 @@ class ClientesController extends AppController
                         }
                     }else{
                         $pf = $this->Clientes->PessoasFisicas->newEntity();
-                        $pf = $this->Clientes->PessoasFisicias->patchEntity($pf, ['cpf'=>$numero, 'cliente_id'=>$id, 'data_nascimento' => $data['data_nascimento']]);
-                        $this->Clientes->PessoasFisicias->save($pf);
+                        $pf = $this->Clientes->PessoasFisicas->patchEntity($pf, ['cpf'=>$numero, 'cliente_id'=>$id, 'data_nascimento' => $data['data_nascimento']]);
+                        $this->Clientes->PessoasFisicas->save($pf);
                     }
                     $this->Flash->success(__('Cliente salvo com Sucesso!.'));
                     return $this->redirect(['action' => 'index']);

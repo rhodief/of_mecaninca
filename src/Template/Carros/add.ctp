@@ -1,28 +1,29 @@
-<?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Carro $carro
- */
-?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Carros'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Ordens De Servico'), ['controller' => 'OrdensDeServico', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Ordens De Servico'), ['controller' => 'OrdensDeServico', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="carros form large-9 medium-8 columns content">
-    <?= $this->Form->create($carro) ?>
-    <fieldset>
-        <legend><?= __('Add Carro') ?></legend>
-        <?php
-            echo $this->Form->control('placa');
-            echo $this->Form->control('marca');
-            echo $this->Form->control('modelo');
-            echo $this->Form->control('cor');
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
+<div class="d-flex">
+  <div class="mr-auto p-2"><h1>Cadastrar Veículo</h1></div>
+  <div class="p-2"><a href="<?= $this->Url->Build(['controller'=>'clientes', 'action'=>"index"]) ?>" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Voltar</a></div>
 </div>
+<?= $this->Form->create($carro) ?>
+  <div class="form-group">
+    <label for="placa-id">Placa</label>
+    <?= $this->Form->text('placa', ['id'=>'placa-id', 'class'=>'form-control']) ?>
+    <small id="emailHelp" class="form-text text-muted">Obrigatório</small>
+  </div>
+ <div class="form-group">
+    <label for="nome-id">Marca</label>
+    <?= $this->Form->text('marca', ['id'=>'marca-id', 'class'=>'form-control']) ?>
+    <small id="emailHelp" class="form-text text-muted"></small>
+  </div>
+  <div class="form-group">
+    <label for="nome-id">Modelo</label>
+    <?= $this->Form->text('modelo', ['id'=>'modelo-id', 'class'=>'form-control']) ?>
+    <small id="emailHelp" class="form-text text-muted"></small>
+  </div>
+  <div class="form-group">
+    <label for="nome-id">Cor</label>
+    <?= $this->Form->text('cor', ['id'=>'cor-id', 'class'=>'form-control']) ?>
+    <small id="emailHelp" class="form-text text-muted"></small>
+  </div>
+  <div class="form-group">
+  <?= $this->Form->button(__('Salvar'), ['class'=>'btn btn-primary']) ?>
+  </div>
+<?= $this->Form->end() ?>
