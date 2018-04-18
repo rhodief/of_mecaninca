@@ -109,4 +109,58 @@ class FuncionariosController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function login(){
+        $senha = '1234';
+        $data = $this->request->getData();
+        $tecnico = preg_split('/tec/i', $data['matricula']);
+        $atendente = preg_split('/ate/i', $data['matricula']);
+
+        if(!empty($tecnico[1])){
+            $tecnico_id = $tecnico[1];
+            $funcionario = $this->Funcionarios->get($tecnico_id, ['contain'=>['Tecnicos']]);
+            
+            if($funcionario && $funcionario->has('tecnico')){
+                if($data['senha'] == $senha){
+                    return $this->redirectToTecnico($funcionario->nome);
+                }
+                return $this->responseError('Senha Incorreta');
+            }
+            return $this->responseError('Funcionário não é Técnico');
+            
+
+        }elseif(!empty($atendente[1])){
+            $atendente_id = $atendente[1];
+            $atendente = $this->Funcionarios->get($atendente_id, ['contain'=>['Atendente']]);
+            if($atendente && $funcionario->has('atendente')){
+                if($data['senha'] == $senha){
+                    return $this->redirectToAtendente($funcionario->nome);
+                }
+                return $this->responseError('Senha Incorreta');
+            }
+            return $this->responseError('Funcionário não é Atendente');
+        }else{
+            $this->Flash->error(__('Formato de Matrícula Incorreto'));
+            return $this->redirect(['controller'=>'pages', 'action' => 'home']);
+        }
+
+        debug($tecnico);exit;
+    }
+
+    private function responseError($msg){
+        $this->Flash->error(__($msg));
+        return $this->redirect(['controller'=>'pages', 'action' => 'home']);
+    }
+
+    private function redirectToTecnico($name){
+        $msg = 'Bem Vindo, Técnico ' . $name;
+        $this->Flash->success(__($msg));
+        return $this->redirect(['controller'=>'clientes', 'action' => 'index']);
+    }
+
+    private function redirectToAtendente($name){
+        $msg = 'Bem Vindo, Atendente ' . $name;
+        $this->Flash->success(__($msg));
+        return $this->redirect(['controller'=>'clientes', 'action' => 'index']);
+    }
 }
