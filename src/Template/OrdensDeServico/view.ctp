@@ -37,7 +37,7 @@
     </tr>
     <tr>
       <th scope="row">Carro</th>
-      <td><?= $ordensDeServico->has('carro') ? $this->Html->link($ordensDeServico->carro->placa, ['controller' => 'Carros', 'action' => 'view', $ordensDeServico->carro->id]) : '' ?></td>
+      <td><?= $ordensDeServico->has('carro') ? $this->Html->link($ordensDeServico->carro->placa . ' - ' . $ordensDeServico->carro->marca . ' ' . $ordensDeServico->carro->modelo, ['controller' => 'Carros', 'action' => 'view', $ordensDeServico->carro->id]) : '' ?></td>
     </tr>
     <tr>
       <th scope="row">Data de Abertura</th>
@@ -94,21 +94,41 @@
   <thead>
     <tr>
       <th scope="col">Descrição</th>
-      <th scope="col">Quantidade</th>
+      <th scope="col">Setor</th>
+      <th scope="col">Qnt. Horas</th>
+      <th scope="col">Valor Hora</th>
+      <th scope="col">Total Unit</th>
       <th scope="col">Status</th>
       <th scope="col">Ações</th>
       
     </tr>
   </thead>
   <tbody>
-      <?php foreach ($ordensDeServico->servicos as $item):?>
+      <?php 
+      $total = 0;
+      foreach ($ordensDeServico->servicos as $item):
+        $sub = (int) $item->_joinData->quantidade *  (int) $item->setor->valor_hora;
+        $total += $sub
+      ?>
     <tr>
       <th scope="row"><?= $item->descricao ?></th>
+      <td> <?= $item->setor->nome ?> </td>
       <td> <?= $item->_joinData->quantidade ?> </td>
+      <td> <?= $item->setor->valor_hora ?> </td>
+      <td> <?= $sub ?> </td>
       <td><span class="badge badge-pill badge-warning">Finalizado<?= $item->status ?></span></td>
       <td><a href="<?= $this->Url->Build(['controller'=>'servicos', 'action'=>"view", $item->_joinData->id]) ?>" class="btn btn-primary" role="button" aria-pressed="true">Detalhes</a></td>
     </tr>
 <?php endforeach; ?>
+    <tr>
+        <th scope="row">Subtotal</th>
+        <td>  </td>
+        <td>  </td>
+        <td> </td>
+        <td> <?= $total ?> </td>
+        <td></td>
+        <td></td>
+    </tr>
   </tbody>
 </table>
 <?php } ?>
@@ -142,23 +162,45 @@
     <tr>
       <th scope="col">Descrição</th>
       <th scope="col">Quantidade</th>
+      <th scope="col">Valor</th>
+      <th scope="col">Total Unit</th>
       <th scope="col">Status</th>
       <th scope="col">Ações</th>
       
     </tr>
   </thead>
   <tbody>
-      <?php foreach ($ordensDeServico->pecas as $peca):?>
+      <?php 
+      $totalPecas = 0;
+      foreach ($ordensDeServico->pecas as $peca):
+      $subPecas = (int) $peca->valor * (int) $peca->_joinData->quantidade;
+      $totalPecas += $subPecas;
+      ?>
     <tr>
-      <th scope="row"><?= $peca->descricao ?></th>
+      <th scope="row"><?= $peca->descricao . ' (' . $peca->marca . ')' ?></th>
       <td> <?= $peca->_joinData->quantidade ?> </td>
+      <td> <?= $peca->valor ?> </td>
+      <td> <?= $subPecas ?> </td>
       <td><span class="badge badge-pill badge-warning">Finalizado<?= $peca->status ?></span></td>
       <td><a href="<?= $this->Url->Build(['controller'=>'pecas', 'action'=>"view", $peca->_joinData->id]) ?>" class="btn btn-primary" role="button" aria-pressed="true">Detalhes</a></td>
     </tr>
 <?php endforeach; ?>
+    <tr>
+      <th scope="row">SubTotal</th>
+      <td>  </td>
+      <td> </td>
+      <td> <?= $totalPecas ?> </td>
+      <td></td>
+      <td></td>
+    </tr>
   </tbody>
 </table>
 <?php } ?>
+
+<div class="d-flex">
+  <div class="mr-auto p-2"></div>
+  <div class="p-2"><h1><span class="badge badge-pill badge-success">Total: <?= $total + $totalPecas  ?></span></h1></div>
+</div>
 
 
 
