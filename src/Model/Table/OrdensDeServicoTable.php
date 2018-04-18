@@ -37,7 +37,7 @@ class OrdensDeServicoTable extends Table
         parent::initialize($config);
 
         $this->setTable('ordens_de_servico');
-        $this->setDisplayField('placa');
+        $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
@@ -55,6 +55,12 @@ class OrdensDeServicoTable extends Table
         ]);
         $this->belongsToMany('Servicos', [
             'through' => 'ItensDeServico',
+            'foreignKey' => 'ordem_servico_id'
+        ]);
+        
+        $this->belongsToMany('Pecas', [
+            'through' => 'ItensDePeca',
+            'foreignKey' => 'ordem_servico_id'
         ]);
     }
 

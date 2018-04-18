@@ -4,17 +4,14 @@
  * @var \App\Model\Entity\Peca[]|\Cake\Collection\CollectionInterface $pecas
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Peca'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Itens De Paca'), ['controller' => 'ItensDePaca', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Itens De Paca'), ['controller' => 'ItensDePaca', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="pecas index large-9 medium-8 columns content">
-    <h3><?= __('Pecas') ?></h3>
-    <table cellpadding="0" cellspacing="0">
+
+<div class="d-flex">
+  <div class="mr-auto p-2"><h1>Peças</h1></div>
+  <div class="p-2"><a href="<?= $this->Url->Build(['controller'=>'pecas', 'action'=>"add"]) ?>" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Cadastrar Peças</a></div>
+</div>
+
+
+    <table class="table table-hover">
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
@@ -44,12 +41,12 @@
     </table>
     <div class="paginator">
         <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->first('<< ' . __('Primeira')) ?>
+            <?= $this->Paginator->prev('< ' . __('Anterior')) ?>
             <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
+            <?= $this->Paginator->next(__('Próxima') . ' >') ?>
+            <?= $this->Paginator->last(__('Última') . ' >>') ?>
         </ul>
-        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
+        <p><?= $this->Paginator->counter(['format' => __('Página {{page}} of {{pages}}, mostrando {{current}} registro(s) de um total de {{count}}')]) ?></p>
     </div>
-</div>
+

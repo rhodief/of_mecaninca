@@ -49,13 +49,18 @@ class FuncionariosController extends AppController
     public function add()
     {
         $funcionario = $this->Funcionarios->newEntity();
+        
         if ($this->request->is('post')) {
+            //debug($this->request->getData());exit;
             $funcionario = $this->Funcionarios->patchEntity($funcionario, $this->request->getData());
-            if ($this->Funcionarios->save($funcionario)) {
+            $result = $this->Funcionarios->save($funcionario);
+            if ($result) {
                 $this->Flash->success(__('The funcionario has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
+            //debug($funcionario->errors());
+            
             $this->Flash->error(__('The funcionario could not be saved. Please, try again.'));
         }
         $this->set(compact('funcionario'));

@@ -104,4 +104,15 @@ class PecasController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function specas(){
+
+        $s = $this->request->getQuery('s');
+        $ajax = [];
+        if(!empty($s)){
+            $ajax = $this->Pecas->find()->where(['descricao ILIKE' => '%' . $s . '%']);
+        }
+        $this->set('ajax',$ajax);
+        $this->viewBuilder()->setLayout('ajax');
+    }
 }

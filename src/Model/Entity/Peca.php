@@ -33,6 +33,6 @@ class Peca extends Entity
         'valor' => true,
         'created' => true,
         'modified' => true,
-        'itens_de_paca' => true
+        'itens_de_peca' => true
     ];
 }

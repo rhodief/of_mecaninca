@@ -4,19 +4,14 @@
  * @var \App\Model\Entity\Servico[]|\Cake\Collection\CollectionInterface $servicos
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Servico'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Setores'), ['controller' => 'Setores', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Setor'), ['controller' => 'Setores', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Itens De Servico'), ['controller' => 'ItensDeServico', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Itens De Servico'), ['controller' => 'ItensDeServico', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="servicos index large-9 medium-8 columns content">
-    <h3><?= __('Servicos') ?></h3>
-    <table cellpadding="0" cellspacing="0">
+
+<div class="d-flex">
+  <div class="mr-auto p-2"><h1>Serviços</h1></div>
+  <div class="p-2"><a href="<?= $this->Url->Build(['controller'=>'servicos', 'action'=>"add"]) ?>" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Cadastrar Serviço</a></div>
+</div>
+
+
+    <table class="table table-hover">
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
@@ -48,12 +43,11 @@
     </table>
     <div class="paginator">
         <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->first('<< ' . __('Primeira')) ?>
+            <?= $this->Paginator->prev('< ' . __('Anterior')) ?>
             <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
+            <?= $this->Paginator->next(__('Próxima') . ' >') ?>
+            <?= $this->Paginator->last(__('Última') . ' >>') ?>
         </ul>
-        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
+        <p><?= $this->Paginator->counter(['format' => __('Página {{page}} of {{pages}}, mostrando {{current}} registro(s) de um total de {{count}}')]) ?></p>
     </div>
-</div>

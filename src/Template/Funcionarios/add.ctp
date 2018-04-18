@@ -4,27 +4,33 @@
  * @var \App\Model\Entity\Funcionario $funcionario
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Funcionarios'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Atendentes'), ['controller' => 'Atendentes', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Atendente'), ['controller' => 'Atendentes', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Tecnicos'), ['controller' => 'Tecnicos', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Tecnico'), ['controller' => 'Tecnicos', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="funcionarios form large-9 medium-8 columns content">
-    <?= $this->Form->create($funcionario) ?>
-    <fieldset>
-        <legend><?= __('Add Funcionario') ?></legend>
-        <?php
-            echo $this->Form->control('nome');
-            echo $this->Form->control('cpf');
-            echo $this->Form->control('data_admissao');
-            echo $this->Form->control('data_desligamento');
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
+<div class="d-flex">
+  <div class="mr-auto p-2"><h1> Cadastrar Funcionário </h1></div>
+  <div class="p-2"><a href="<?= $this->Url->Build(['controller'=>'funcionarios', 'action'=>"index"]) ?>" class="btn btn-success active" role="button" aria-pressed="true">Voltar</a></div>
 </div>
+
+<?= $this->Form->create($funcionario) ?>
+<div class="form-group">
+    <label for="nome-id">Nome</label>
+    <?= $this->Form->text('nome', ['id'=>'nome-id', 'class'=>'form-control']) ?>
+    <small id="emailHelp" class="form-text text-muted"></small>
+</div>
+<div class="form-group">
+    <label for="cpf-id">CPF</label>
+    <?= $this->Form->text('cpf', ['id'=>'cpf-id', 'class'=>'form-control']) ?>
+    <small id="emailHelp" class="form-text text-muted"></small>
+</div>
+<div class="form-group">
+    <label for="data_admissao-id">Data de Admissão</label>
+    <?= $this->Form->text('data_admissao', ['id'=>'data_admissao-id', 'class'=>'form-control']) ?>
+    <small id="emailHelp" class="form-text text-muted"></small>
+</div>
+<div class="form-group">
+    <label for="data-demissao-id">Data de Demissão</label>
+    <?= $this->Form->text('data_demissao', ['id'=>'data-demissao-id', 'class'=>'form-control']) ?>
+    <small id="emailHelp" class="form-text text-muted"></small>
+</div>
+<div class="form-group">
+  <?= $this->Form->button(__('Salvar'), ['class'=>'btn btn-primary']) ?>
+  </div>
+<?= $this->Form->end() ?>

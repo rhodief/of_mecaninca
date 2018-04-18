@@ -109,4 +109,15 @@ class ServicosController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function sservicos(){
+
+        $s = $this->request->getQuery('s');
+        $ajax = [];
+        if(!empty($s)){
+            $ajax = $this->Servicos->find()->where(['descricao ILIKE' => '%' . $s . '%']);
+        }
+        $this->set('ajax',$ajax);
+        $this->viewBuilder()->setLayout('ajax');
+    }
 }

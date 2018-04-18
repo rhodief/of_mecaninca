@@ -37,7 +37,7 @@ class ItensDePecaTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
-        $this->belongsTo('OrdemServicos', [
+        $this->belongsTo('OrdensDeServico', [
             'foreignKey' => 'ordem_servico_id',
             'joinType' => 'INNER'
         ]);
@@ -60,9 +60,9 @@ class ItensDePecaTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->integer('quatidade')
-            ->requirePresence('quatidade', 'create')
-            ->notEmpty('quatidade');
+            ->integer('quantidade')
+            ->requirePresence('quantidade', 'create')
+            ->notEmpty('quantidade');
 
         return $validator;
     }
@@ -76,7 +76,7 @@ class ItensDePecaTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['ordem_servico_id'], 'OrdemServicos'));
+        $rules->add($rules->existsIn(['ordem_servico_id'], 'OrdensDeServico'));
         $rules->add($rules->existsIn(['peca_id'], 'Pecas'));
 
         return $rules;

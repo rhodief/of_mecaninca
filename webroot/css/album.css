@@ -50,3 +50,15 @@ main .container {
 table.table.table-striped td {
   width: 85%;
 }
+
+.card.result{
+  position: absolute;
+}
+
+.card.result li:hover{
+  background-color: #007bff;
+  color: beige;
+  cursor: pointer;
+}
+
+

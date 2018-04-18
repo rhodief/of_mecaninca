@@ -4,24 +4,31 @@
  * @var \App\Model\Entity\Peca $peca
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Pecas'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Itens De Paca'), ['controller' => 'ItensDePaca', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Itens De Paca'), ['controller' => 'ItensDePaca', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="pecas form large-9 medium-8 columns content">
-    <?= $this->Form->create($peca) ?>
-    <fieldset>
-        <legend><?= __('Add Peca') ?></legend>
-        <?php
-            echo $this->Form->control('descricao');
-            echo $this->Form->control('marca');
-            echo $this->Form->control('valor');
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
+
+<div class="d-flex">
+  <div class="mr-auto p-2"><h1> Cadastar Peças </h1></div>
+  <div class="p-2"><a href="<?= $this->Url->Build(['controller'=>'pecas', 'action'=>"index"]) ?>" class="btn btn-secondary active" role="button" aria-pressed="true">Voltar</a></div>
 </div>
+
+<?= $this->Form->create($peca) ?>
+<div class="form-group">
+    <label for="desc-id">Descrição</label>
+    <?= $this->Form->textarea('descricao', ['id'=>'desc-id', 'class'=>'form-control']) ?>
+    <small id="emailHelp" class="form-text text-muted"></small>
+</div>
+<div class="form-group">
+    <label for="marca-id">Marca</label>
+    <?= $this->Form->text('marca', ['id'=>'marca-id', 'class'=>'form-control']) ?>
+    <small id="emailHelp" class="form-text text-muted"></small>
+</div>
+<div class="form-group">
+    <label for="valor-id">Valor</label>
+    <?= $this->Form->text('valor', ['id'=>'valor-id', 'class'=>'form-control']) ?>
+    <small id="emailHelp" class="form-text text-muted"></small>
+</div>
+
+<div class="form-group">
+  <?= $this->Form->button(__('Salvar'), ['class'=>'btn btn-primary']) ?>
+  </div>
+<?= $this->Form->end() ?>
+

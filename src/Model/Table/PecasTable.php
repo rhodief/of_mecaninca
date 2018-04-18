@@ -40,8 +40,11 @@ class PecasTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->hasMany('ItensDePaca', [
+        $this->hasMany('ItensDePeca', [
             'foreignKey' => 'peca_id'
+        ]);
+        $this->belongsToMany('OrdensDeServico', [
+            'through' => 'ItensDePeca',
         ]);
     }
 

@@ -37,11 +37,42 @@ class OrdensDeServicoController extends AppController
      */
     public function view($id = null)
     {
-        $ordensDeServico = $this->OrdensDeServico->get($id, [
-            'contain' => ['Clientes', 'Carros', 'Faturamento']
-        ]);
 
-        $this->set('ordensDeServico', $ordensDeServico);
+        if($this->request->is('post')){
+            $data = $this->request->getData();
+            $ordensDeServico = $this->OrdensDeServico->get($id);
+
+            if(!empty($data['tipo']) && $data['tipo'] == 'servico'){
+                $servico_id = $data['f-servico'];
+                $servico = $this->OrdensDeServico->Servicos->get($servico_id);
+                $servico->_joinData = $this->OrdensDeServico->Servicos->ItensDeServico->newEntity($data);
+                $result = $this->OrdensDeServico->Servicos->link($ordensDeServico, [$servico]);
+                
+                if($result){
+                    $this->Flash->success(__('Item de Serviço Salvo com Sucesso'));
+
+                }else{
+                    debug('não salvou');
+                }
+            }elseif(!empty($data['tipo']) && $data['tipo'] == 'peca'){
+                $peca_id = $data['f-peca'];
+                $peca = $this->OrdensDeServico->Pecas->get($peca_id);
+                $peca->_joinData = $this->OrdensDeServico->Pecas->ItensDePeca->newEntity($data);
+                $result = $this->OrdensDeServico->Pecas->link($ordensDeServico, [$peca]);
+                
+                if($result){
+                    $this->Flash->success(__('Item de Peça Salvo com Sucesso'));
+
+                }else{
+                    debug('não salvou peças');
+                }
+            }
+            
+        }
+        $ordensDeServico = $this->OrdensDeServico->get($id, [
+            'contain' => ['Clientes', 'Carros', 'Faturamento', 'Servicos', 'Servicos.Setores', 'Pecas']
+        ]);
+        $this->set(compact('ordensDeServico', 'itens'));        
     }
 
     /**

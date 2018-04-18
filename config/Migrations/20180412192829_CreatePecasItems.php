@@ -23,7 +23,7 @@ class CreatePecasItems extends AbstractMigration
             'limit' => 255,
             'null' => false,
         ]);
-        $table->addColumn('quatidade', 'integer', [
+        $table->addColumn('quantidade', 'integer', [
             'default' => null,
             'limit' => 11,
             'null' => false,

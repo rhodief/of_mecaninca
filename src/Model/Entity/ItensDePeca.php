@@ -29,7 +29,7 @@ class ItensDePeca extends Entity
     protected $_accessible = [
         'ordem_servico_id' => true,
         'peca_id' => true,
-        'quatidade' => true,
+        'quantidade' => true,
         'ordem_servico' => true,
         'peca' => true
     ];

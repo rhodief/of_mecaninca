@@ -76,12 +76,12 @@ class FuncionariosTable extends Table
             ->notEmpty('cpf');
 
         $validator
-            ->dateTime('data_admissao')
+            ->date('data_admissao')
             ->requirePresence('data_admissao', 'create')
             ->notEmpty('data_admissao');
 
         $validator
-            ->dateTime('data_desligamento')
+            ->date('data_desligamento')
             ->allowEmpty('data_desligamento');
 
         return $validator;
