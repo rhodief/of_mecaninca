@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Cache\Cache;
 
 /**
  * Funcionarios Controller
@@ -122,6 +123,7 @@ class FuncionariosController extends AppController
             
             if($funcionario && $funcionario->has('tecnico')){
                 if($data['senha'] == $senha){
+                    $this->setUser($funcionario, 'TEC');
                     return $this->redirectToTecnico($funcionario->nome);
                 }
                 return $this->responseError('Senha Incorreta');
@@ -134,6 +136,7 @@ class FuncionariosController extends AppController
             $atendente = $this->Funcionarios->get($atendente_id, ['contain'=>['Atendente']]);
             if($atendente && $funcionario->has('atendente')){
                 if($data['senha'] == $senha){
+                    $this->setUser($funcionario, 'ATE');
                     return $this->redirectToAtendente($funcionario->nome);
                 }
                 return $this->responseError('Senha Incorreta');
@@ -145,6 +148,11 @@ class FuncionariosController extends AppController
         }
 
         debug($tecnico);exit;
+    }
+
+    public function logout(){
+        Cache::write('User.user', null);
+        $this->redirectToLogin();
     }
 
     private function responseError($msg){
@@ -163,4 +171,16 @@ class FuncionariosController extends AppController
         $this->Flash->success(__($msg));
         return $this->redirect(['controller'=>'clientes', 'action' => 'index']);
     }
+
+    private function redirectToLogin(){
+        $msg = 'Você saiu do Sistema!';
+        $this->Flash->success(__($msg));
+        return $this->redirect(['controller'=>'pages', 'action' => 'display']);
+    }
+
+    private function setUser($user, $alias){
+        $usr = ['alias'=>$alias, 'user'=>$user];
+        Cache::write('User.user', $usr);
+    }
+    
 }

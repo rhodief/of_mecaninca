@@ -14,6 +14,7 @@
  */
 
 $cakeDescription = 'Chave de Rodas';
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -56,11 +57,11 @@ $cakeDescription = 'Chave de Rodas';
               <p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
             </div>
             <div class="col-sm-4 offset-md-1 py-4">
-              <h4 class="text-white">Contact</h4>
+              <h4 class="text-white">Configurações</h4>
               <ul class="list-unstyled">
-                <li><a href="#" class="text-white">Follow on Twitter</a></li>
-                <li><a href="#" class="text-white">Like on Facebook</a></li>
-                <li><a href="#" class="text-white">Email me</a></li>
+                <li><a href="#" class="text-white">Preferências</a></li>
+                <li><a href="#" class="text-white">Administrativo</a></li>
+                <li><a href="<?= $this->Url->Build(['controller'=>'funcionarios', 'action'=>'logout']) ?>" class="text-white">Sair</a></li>
               </ul>
             </div>
           </div>
@@ -72,6 +73,8 @@ $cakeDescription = 'Chave de Rodas';
           <i class="fas fa-wrench"></i> &nbsp;
             <strong>Chave de Rodas - Oficina Mecânica</strong>
           </a>
+          
+          <span class="text-white"> <?= isset($user['user']) ? 'Olá ' . $user['user']['nome'] . ' (' . $user['alias'].$user['user']['id'] . ')' : ''  ?></span>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>

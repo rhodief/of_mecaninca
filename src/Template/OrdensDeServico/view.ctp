@@ -67,6 +67,11 @@
 </table>
 </div>
 
+<?php 
+$total = 0;
+$totalPecas = 0;
+?>
+
 <hr>
 
 <div class="d-flex">
@@ -196,6 +201,7 @@
   </tbody>
 </table>
 <?php } ?>
+
 
 <div class="d-flex">
   <div class="mr-auto p-2"></div>

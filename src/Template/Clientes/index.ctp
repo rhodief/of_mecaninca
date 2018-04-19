@@ -3,6 +3,7 @@
   <div class="p-2"><a href="<?= $this->Url->Build(['controller'=>'clientes', 'action'=>"add"]) ?>" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Cadastrar</a></div>
 </div>
 <?php //debug($clientes)  ?>
+<?php echo $user['user']['nome']  ?>
 <?= $this->Form->create(null, ['type'=>'get']) ?>
     <div class="form-group">
         <?= $this->Form->text('s', ['class'=>'form-control form-control-lg', 'placeholder'=>'Pesquisa de Clientes', 'default'=>$s]); ?>
