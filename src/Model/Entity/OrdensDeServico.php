@@ -51,7 +51,7 @@ class OrdensDeServico extends Entity
         'faturamento' => true
     ];
 
-    protected $_virtual = ['estado'];
+    protected $_virtual = [''];
 
     
     //Virtuals

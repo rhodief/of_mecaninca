@@ -32,11 +32,12 @@ class ItensDeServico extends Entity
         'servico_id' => true,
         'quantidade' => true,
         'ordem_de_servico' => true,
-        'servico' => true,
-        'situacao' => true
+        'servico' => true
     ];
 
-    protected function _getSituacao()
+    protected $_virtual = ['estado'];
+
+    protected function _getEstado()
     {
         
         $situacao = $this->_properties['situacao'];
