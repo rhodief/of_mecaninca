@@ -133,7 +133,7 @@ class FuncionariosController extends AppController
 
         }elseif(!empty($atendente[1])){
             $atendente_id = $atendente[1];
-            $atendente = $this->Funcionarios->get($atendente_id, ['contain'=>['Atendente']]);
+            $atendente = $this->Funcionarios->get($atendente_id, ['contain'=>['Atendentes']]);
             if($atendente && $funcionario->has('atendente')){
                 if($data['senha'] == $senha){
                     $this->setUser($funcionario, 'ATE');
