@@ -13,9 +13,9 @@ class AddSituacaoToItensDeServico extends AbstractMigration
     public function change()
     {
         $table = $this->table('itens_de_servico');
-        $table->addColumn('situacao', 'string', [
+        $table->addColumn('situacao', 'integer', [
             'default' => null,
-            'limit' => 255,
+            'limit' => 11,
             'null' => false,
         ]);
         $table->update();

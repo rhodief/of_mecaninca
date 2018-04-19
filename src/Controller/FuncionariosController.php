@@ -134,10 +134,10 @@ class FuncionariosController extends AppController
         }elseif(!empty($atendente[1])){
             $atendente_id = $atendente[1];
             $atendente = $this->Funcionarios->get($atendente_id, ['contain'=>['Atendentes']]);
-            if($atendente && $funcionario->has('atendente')){
+            if($atendente && $atendente->has('atendente')){
                 if($data['senha'] == $senha){
-                    $this->setUser($funcionario, 'ATE');
-                    return $this->redirectToAtendente($funcionario->nome);
+                    $this->setUser($atendente, 'ATE');
+                    return $this->redirectToAtendente($atendente->nome);
                 }
                 return $this->responseError('Senha Incorreta');
             }
@@ -163,7 +163,7 @@ class FuncionariosController extends AppController
     private function redirectToTecnico($name){
         $msg = 'Bem Vindo, Técnico ' . $name;
         $this->Flash->success(__($msg));
-        return $this->redirect(['controller'=>'clientes', 'action' => 'index']);
+        return $this->redirect(['controller'=>'setores', 'action' => 'dashboard']);
     }
 
     private function redirectToAtendente($name){

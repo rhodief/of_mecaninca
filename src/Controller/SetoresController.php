@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Cache\Cache;
 
 /**
  * Setores Controller
@@ -104,5 +105,20 @@ class SetoresController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+
+    public function dashboard(){
+        $user = Cache::read('User.user');
+        if(!$user['user']){
+            $this->Flash->error(__('Não foi possível recurar Usuário - Cache...'));
+            return $this->redirect(['controller'=>'pages', 'action' => 'display']);
+        }
+        $setor_id = $user['user']['tecnico']['setor_id'];
+        debug($setor_id);
+        $setor = $this->Setores->get($setor_id, ['contain'=>['Servicos', 'Servicos.ItensDeServico']]);
+        debug($setor);exit;
+        
+        
     }
 }

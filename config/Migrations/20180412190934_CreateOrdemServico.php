@@ -29,9 +29,9 @@ class CreateOrdemServico extends AbstractMigration
             'default' => null,
             'null' => true
         ]);
-        $table->addColumn('situacao', 'string', [
+        $table->addColumn('situacao', 'integer', [
             'default' => null,
-            'limit' => 255,
+            'limit' => 11,
             'null' => false,
         ]);
         $table->addColumn('obs', 'text', [

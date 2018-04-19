@@ -2,6 +2,7 @@
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
+use App\Utils\EstadosItensServico;
 
 /**
  * ItensDeServico Entity
@@ -31,6 +32,23 @@ class ItensDeServico extends Entity
         'servico_id' => true,
         'quantidade' => true,
         'ordem_de_servico' => true,
-        'servico' => true
+        'servico' => true,
+        'situacao' => true
     ];
+
+    protected function _getSituacao()
+    {
+        
+        $situacao = $this->_properties['situacao'];
+        $estados = EstadosItensServico::estados();
+        if(isset($estados[$situacao])){
+            return $estados[$situacao];
+        }
+        return 'Situação Inválida';
+        
+    }
+
+    
+
+
 }

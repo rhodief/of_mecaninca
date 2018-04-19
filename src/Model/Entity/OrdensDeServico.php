@@ -2,6 +2,7 @@
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
+use App\Utils\EstadosOs;
 
 /**
  * OrdensDeServico Entity
@@ -49,4 +50,18 @@ class OrdensDeServico extends Entity
         'carro' => true,
         'faturamento' => true
     ];
+
+    protected $_virtual = ['estado'];
+
+    
+    //Virtuals
+    protected function _getSituacao()
+    {
+        $situacao = $this->_properties['situacao'];
+        $estados = EstadosOs::estados();
+        if(isset($estados[$situacao])){
+            return $estados[$situacao];
+        }
+        return 'Situação Inválida';
+    }
 }

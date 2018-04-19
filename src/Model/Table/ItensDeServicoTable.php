@@ -64,6 +64,11 @@ class ItensDeServicoTable extends Table
             ->requirePresence('quantidade', 'create')
             ->notEmpty('quantidade');
 
+            $validator
+            ->integer('situacao')
+            ->requirePresence('situacao', 'create')
+            ->notEmpty('situacao');
+
         return $validator;
     }
 

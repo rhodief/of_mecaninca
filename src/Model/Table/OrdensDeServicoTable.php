@@ -94,8 +94,7 @@ class OrdensDeServicoTable extends Table
             ->allowEmpty('data_finalizacao');
 
         $validator
-            ->scalar('situacao')
-            ->maxLength('situacao', 255)
+            ->integer('situacao')
             ->requirePresence('situacao', 'create')
             ->notEmpty('situacao');
 

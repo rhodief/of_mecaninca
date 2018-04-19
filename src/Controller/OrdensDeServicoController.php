@@ -2,6 +2,9 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Cache\Cache;
+use App\Utils\EstadosOs;
+use App\Utils\EstadosItensServico;
 
 /**
  * OrdensDeServico Controller
@@ -46,6 +49,7 @@ class OrdensDeServicoController extends AppController
                 $servico_id = $data['f-servico'];
                 $servico = $this->OrdensDeServico->Servicos->get($servico_id);
                 $servico->_joinData = $this->OrdensDeServico->Servicos->ItensDeServico->newEntity($data);
+                $servico->_joinData->situacao = EstadosItensServico::setAguardando();
                 $result = $this->OrdensDeServico->Servicos->link($ordensDeServico, [$servico]);
                 
                 if($result){
@@ -72,6 +76,7 @@ class OrdensDeServicoController extends AppController
         $ordensDeServico = $this->OrdensDeServico->get($id, [
             'contain' => ['Clientes', 'Carros', 'Faturamento', 'Servicos', 'Servicos.Setores', 'Pecas']
         ]);
+        
         $this->set(compact('ordensDeServico', 'itens'));        
     }
 
@@ -89,7 +94,7 @@ class OrdensDeServicoController extends AppController
             
             $data['data_abertura'] = $currentDate;
             $data['data_alteracao'] = $currentDate;
-            $data['situacao'] = 'PENDENTE';
+            $data['situacao'] = EstadosOs::setAguardando();
             
             $ordensDeServico = $this->OrdensDeServico->patchEntity($ordensDeServico, $data);
             if ($this->OrdensDeServico->save($ordensDeServico)) {
@@ -98,6 +103,7 @@ class OrdensDeServicoController extends AppController
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('Ordem de Serviço não pode ser salva'));
+            debug($ordensDeServico->errors());
         }
         $cliente_id = $this->request->getQuery('cliente');
         $carro_id = $this->request->getQuery('carro');

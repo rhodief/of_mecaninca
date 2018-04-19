@@ -16,7 +16,7 @@ class AddTecnicoIdToItensDeServico extends AbstractMigration
         $table->addColumn('tecnico_id', 'integer', [
             'default' => null,
             'limit' => 11,
-            'null' => false,
+            'null' => true,
         ]);
         $table->update();
     }

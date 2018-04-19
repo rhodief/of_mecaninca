@@ -121,7 +121,7 @@ $totalPecas = 0;
       <td> <?= $item->_joinData->quantidade ?> </td>
       <td> <?= $item->setor->valor_hora ?> </td>
       <td> <?= $sub ?> </td>
-      <td><span class="badge badge-pill badge-warning">Finalizado<?= $item->status ?></span></td>
+      <td><span class="badge badge-pill badge-warning"><?= $item->_joinData->situacao ?></span></td>
       <td><a href="<?= $this->Url->Build(['controller'=>'servicos', 'action'=>"view", $item->_joinData->id]) ?>" class="btn btn-primary" role="button" aria-pressed="true">Detalhes</a></td>
     </tr>
 <?php endforeach; ?>
