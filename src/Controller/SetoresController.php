@@ -118,12 +118,12 @@ class SetoresController extends AppController
         }
         $setor_id = $user['user']['tecnico']['setor_id'];
         $setor = $this->Setores->get($setor_id, ['contain'=>'Servicos']);
-
+        
         $map = function($n){
             return $n->id;
         };
 
-        $servicos = $this->Setores->Servicos->ItensDeServico->find()->where(['servico_id IN'=> array_map($map, $setor->servicos)])->contain(['Servicos', 'OrdensDeServico.Carros']);
+        $servicos = $this->Setores->Servicos->ItensDeServico->find()->where(['servico_id IN'=> array_map($map, $setor->servicos), 'ItensDeServico.situacao' => 2])->contain(['Servicos', 'OrdensDeServico.Carros']);
 
         $this->set(compact('setor', 'servicos'));
     }

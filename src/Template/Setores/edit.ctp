@@ -27,6 +27,7 @@
         <?php
             echo $this->Form->control('nome');
             echo $this->Form->control('valor_hora');
+            echo $this->Form->control('codigo');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

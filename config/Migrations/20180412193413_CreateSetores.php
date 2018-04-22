@@ -18,6 +18,11 @@ class CreateSetores extends AbstractMigration
             'limit' => 255,
             'null' => false,
         ]);
+        $table->addColumn('codigo', 'string', [
+            'default' => null,
+            'limit' => 2,
+            'null' => false,
+        ]);
         $table->addColumn('valor_hora', 'decimal', [
             'default' => null,
             'limit' => '13,2',

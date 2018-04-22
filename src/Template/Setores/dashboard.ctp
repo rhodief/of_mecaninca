@@ -1,6 +1,6 @@
 <?php //debug($servicos->toArray()) ?>
 <div class="d-flex">
-  <div class="mr-auto p-2"><h1><?= $setor->nome ?></h1></div>
+  <div class="mr-auto p-2"><h1><?= $setor->nome . ' (' . $setor->codigo . ')' ?></h1></div>
   <div class="p-2"><a href="<?= $this->Url->Build(['controller'=>'clientes', 'action'=>"index"]) ?>" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Voltar</a></div>
 </div>
 

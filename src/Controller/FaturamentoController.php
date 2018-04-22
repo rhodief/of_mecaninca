@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use App\Utils\CalcularServicos;
 
 /**
  * Faturamento Controller
@@ -48,19 +49,30 @@ class FaturamentoController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($id = null)
     {
         $faturamento = $this->Faturamento->newEntity();
         if ($this->request->is('post')) {
-            $faturamento = $this->Faturamento->patchEntity($faturamento, $this->request->getData());
+            $data = $this->request->getData();
+            $currentDate = date("Y-m-d H:i:s");
+            $data['data_pagamento'] = $currentDate;
+            $data['ordem_de_servico_id'] = $id;
+            $data['status'] = 'PAGO';
+            $faturamento = $this->Faturamento->patchEntity($faturamento, $data);
             if ($this->Faturamento->save($faturamento)) {
-                $this->Flash->success(__('The faturamento has been saved.'));
-                return $this->redirect(['action' => 'index']);
+                $this->Flash->success(__('Faturamento Salvo com Sucesso'));
+                return $this->redirect(['controller'=>'ordensDeServico', 'action' => 'view', $id]);
             }
-            $this->Flash->error(__('The faturamento could not be saved. Please, try again.'));
+            $this->Flash->error(__('Faturamento não Pôde Ser Salvo'));
         }
-        $ordensDeServico = $this->Faturamento->OrdensDeServico->find('list', ['limit' => 200]);
-        $this->set(compact('faturamento', 'ordensDeServico'));
+        $ordemDeServico = $this->Faturamento->OrdensDeServico->get($id, ['contain'=>['Carros', 'Clientes', 'Servicos.Setores']]);
+        if(!$ordemDeServico){
+            debug('Os não encontrada');exit;
+        }
+        $calculo = new CalcularServicos($ordemDeServico->servicos, $ordemDeServico->pecas);
+        $valores = $calculo->calcular();
+        
+        $this->set(compact('faturamento', 'ordemDeServico', 'valores'));
     }
 
     /**

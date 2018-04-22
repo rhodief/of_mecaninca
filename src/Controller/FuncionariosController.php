@@ -169,7 +169,7 @@ class FuncionariosController extends AppController
     private function redirectToAtendente($name){
         $msg = 'Bem Vindo, Atendente ' . $name;
         $this->Flash->success(__($msg));
-        return $this->redirect(['controller'=>'clientes', 'action' => 'index']);
+        return $this->redirect(['controller'=>'ordensDeServico', 'action' => 'dashboard']);
     }
 
     private function redirectToLogin(){

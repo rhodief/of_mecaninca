@@ -200,7 +200,12 @@ class OrdensDeServicoController extends AppController
         $this->redirect(['controller'=>'setores', 'action'=>'dashboard']);
     }
 
-    
+    public function dashboard(){
+        $os_finalizadas = $this->OrdensDeServico->find()->where(['situacao'=> 3])->contain(['Clientes', 'Carros'])->notMatching('Faturamento', function($q){
+            return $q->where(['Faturamento.status IS NOT' => NULL]);
+        });
+        $this->set(compact('os_finalizadas'));
+    }   
 
 
 }

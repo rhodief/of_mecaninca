@@ -26,7 +26,7 @@
   <div class="p-2"><a href="<?= $this->Url->Build(['controller'=>'OrdensDeServico', 'action'=>"index"]) ?>" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Voltar</a></div>
 </div>
 
-<h2 class="display-3">OS<?= $ordensDeServico->id ?></h2>
+<h2 class="display-3">OS<?= $ordensDeServico->id ?> <span><?= $ordensDeServico->has('faturamento') ? $this->Html->link($ordensDeServico->faturamento->status, ['controller' => 'faturamento', 'action' => 'view', $ordensDeServico->faturamento->id]) : '' ?></span></h2>
 
 <div class="table-responsive">
 <table class="table table-striped">
@@ -78,7 +78,7 @@ $totalPecas = 0;
   <div class="mr-auto p-2"><h1>Serviços</h1></div>
   <div class="p-2"><a href="<?= $this->Url->Build(['controller'=>'servicos', 'action'=>"index"]) ?>" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Todos os Serviços</a></div>
 </div>
-
+<?php if($ordensDeServico->situacao == 2){  ?>
 <?= $this->Form->create(null, ['class'=>'form-row']) ?>
 <div class="form-group col-md-8">
         <?= $this->Form->text('s_servicos', ['id'=>'s-servico', 'class'=>'form-control form-control-lg', 'placeholder'=>'Pesquisa de Serviços']); ?>
@@ -90,9 +90,10 @@ $totalPecas = 0;
         <?= $this->Form->text('quantidade', ['id'=>'id-quantidade', 'class'=>'form-control form-control-lg', 'placeholder'=>'Quantidade']); ?>
 </div>
 <div class="form-group col-md-1">
-  <?= $this->Form->button(__('Salvar'), ['class'=>'btn btn-primary', 'disabled'=>$ordensDeServico->situacao == 2 ? true: false]) ?>
+  <?= $this->Form->button(__('Salvar'), ['class'=>'btn btn-primary']) ?>
   </div>
 <?= $this->Form->end() ?>
+<?php }?>
 
 <?php if(!empty($ordensDeServico->servicos)){?>
 <table class="table table-hover">
@@ -146,6 +147,7 @@ $totalPecas = 0;
   <div class="p-2"><a href="<?= $this->Url->Build(['controller'=>'pecas', 'action'=>"index"]) ?>" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Todos as Peças</a></div>
 </div>
 
+<?php if($ordensDeServico->situacao == 2){  ?>
 <?= $this->Form->create(null, ['class'=>'form-row']) ?>
 <div class="form-group col-md-8">
         <?= $this->Form->text('s_peca', ['id'=>'s-peca', 'class'=>'form-control form-control-lg', 'placeholder'=>'Pesquisa de Serviços']); ?>
@@ -157,9 +159,11 @@ $totalPecas = 0;
         <?= $this->Form->text('quantidade', ['id'=>'id-quantidade', 'class'=>'form-control form-control-lg', 'placeholder'=>'Quantidade']); ?>
 </div>
 <div class="form-group col-md-1">
-  <?= $this->Form->button(__('Salvar'), ['class'=>'btn btn-primary', 'disabled'=>$ordensDeServico->situacao == 2 ? true: false]) ?>
+  <?= $this->Form->button(__('Salvar'), ['class'=>'btn btn-primary']) ?>
   </div>
 <?= $this->Form->end() ?>
+<?php }?>
+
 
 <?php if(!empty($ordensDeServico->pecas)){?>
 <table class="table table-hover">
@@ -205,9 +209,17 @@ $totalPecas = 0;
 
 <div class="d-flex">
   <div class="mr-auto p-2">
-  <?= $this->Form->postLink(__('Fechar OS'), ['action' => 'aceite', $ordensDeServico->id], ['confirm' => __('Deseja Fechar a OS{0}?', $ordensDeServico->id), 'class'=>'btn btn-danger']) ?>
-  </div>
-  <div class="p-2"><h1><span class="badge badge-pill badge-success">Total: <?= $total + $totalPecas  ?></span></h1></div>
+  <?php if($ordensDeServico->situacao == 1){  ?>
+    <?= $this->Form->postLink(__('Fechar OS'), ['action' => 'aceite', $ordensDeServico->id], ['confirm' => __('Deseja Fechar a OS{0}?', $ordensDeServico->id), 'class'=>'btn btn-danger']) ?>
+    </div>
+    <div class="p-2"><h1><span class="badge badge-pill badge-success">Total: <?= $total + $totalPecas  ?></span></h1></div>
+  <?php }  ?>
+
+  <?php if($ordensDeServico->situacao == 3){  ?>
+    <a href="<?= $this->Url->Build(['controller'=>'faturamento', 'action'=>"add", $ordensDeServico->id]) ?>" class="btn btn-success" role="button" aria-pressed="true">Pagamento</a>
+    </div>
+    <div class="p-2"><h1><span class="badge badge-pill badge-success">Total: <?= $total + $totalPecas  ?></span></h1></div>
+  <?php }  ?>
 </div>
 
 

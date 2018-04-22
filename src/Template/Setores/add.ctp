@@ -16,6 +16,11 @@
     <small id="emailHelp" class="form-text text-muted"></small>
 </div>
 <div class="form-group">
+    <label for="nome-id">Código</label>
+    <?= $this->Form->text('codigo', ['id'=>'nome-id', 'class'=>'form-control']) ?>
+    <small id="emailHelp" class="form-text text-muted"></small>
+</div>
+<div class="form-group">
     <label for="valor-id">Valor Hora Trabalhada</label>
     <?= $this->Form->text('valor_hora', ['id'=>'valor-id', 'class'=>'form-control']) ?>
     <small id="emailHelp" class="form-text text-muted"></small>
