@@ -57,7 +57,7 @@
     <?php }?>
     <tr>
       <th scope="row">Situação</th>
-      <td><?= h($ordensDeServico->situacao) ?></td>
+      <td><?= h($ordensDeServico->estado) ?></td>
     </tr>
     <tr>
       <th scope="row">Observações</th>
@@ -90,7 +90,7 @@ $totalPecas = 0;
         <?= $this->Form->text('quantidade', ['id'=>'id-quantidade', 'class'=>'form-control form-control-lg', 'placeholder'=>'Quantidade']); ?>
 </div>
 <div class="form-group col-md-1">
-  <?= $this->Form->button(__('Salvar'), ['class'=>'btn btn-primary']) ?>
+  <?= $this->Form->button(__('Salvar'), ['class'=>'btn btn-primary', 'disabled'=>$ordensDeServico->situacao == 2 ? true: false]) ?>
   </div>
 <?= $this->Form->end() ?>
 
@@ -157,7 +157,7 @@ $totalPecas = 0;
         <?= $this->Form->text('quantidade', ['id'=>'id-quantidade', 'class'=>'form-control form-control-lg', 'placeholder'=>'Quantidade']); ?>
 </div>
 <div class="form-group col-md-1">
-  <?= $this->Form->button(__('Salvar'), ['class'=>'btn btn-primary']) ?>
+  <?= $this->Form->button(__('Salvar'), ['class'=>'btn btn-primary', 'disabled'=>$ordensDeServico->situacao == 2 ? true: false]) ?>
   </div>
 <?= $this->Form->end() ?>
 
@@ -204,7 +204,9 @@ $totalPecas = 0;
 
 
 <div class="d-flex">
-  <div class="mr-auto p-2"></div>
+  <div class="mr-auto p-2">
+  <?= $this->Form->postLink(__('Fechar OS'), ['action' => 'aceite', $ordensDeServico->id], ['confirm' => __('Deseja Fechar a OS{0}?', $ordensDeServico->id), 'class'=>'btn btn-danger']) ?>
+  </div>
   <div class="p-2"><h1><span class="badge badge-pill badge-success">Total: <?= $total + $totalPecas  ?></span></h1></div>
 </div>
 

@@ -167,4 +167,40 @@ class OrdensDeServicoController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function aceite($id = null){
+        $this->request->allowMethod(['post']);
+        $ordensDeServico = $this->OrdensDeServico->get($id);
+        $ordensDeServico->situacao = EstadosOs::setEmExecucao();
+        $ordensDeServico->dirty('true');
+        //debug($ordensDeServico);exit;
+        if($this->OrdensDeServico->save($ordensDeServico)){
+            $this->Flash->success(__('Ordem de Serviço em Execução'));
+        }else{
+            $this->Flash->error(__('Não foi possível pôr a Ordem de Serviço em Execução'));
+        }
+        return $this->redirect(['action' => 'view', $id]);
+    }
+
+    public function verificarFinalizacao($id = null){
+        $os = $this->OrdensDeServico->get($id, ['contain'=>'Servicos']);
+        if($os->situacao == 2){
+            $isFinalized = true;
+            foreach($os->servicos as $servico){
+                if($servico->_joinData->situacao != 3){
+                    $isFinalized = false;
+                }
+            }
+            if($isFinalized){
+                $os->situacao = EstadosOs::setFinalizado();
+                $os->dirty(true);
+                $this->OrdensDeServico->save($os);
+            }
+        }
+        $this->redirect(['controller'=>'setores', 'action'=>'dashboard']);
+    }
+
+    
+
+
 }

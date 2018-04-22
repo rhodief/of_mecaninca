@@ -45,11 +45,14 @@ class ServicosTable extends Table
             'foreignKey' => 'setor_id',
             'joinType' => 'INNER'
         ]);
+        
         $this->hasMany('ItensDeServico', [
             'foreignKey' => 'servico_id'
         ]);
+        
         $this->belongsToMany('OrdensDeServico', [
             'through' => 'ItensDeServico',
+            'targetForeignKey' => 'ordem_servico_id'
         ]);
     }
 

@@ -40,7 +40,6 @@ class OrdensDeServico extends Entity
         'data_alteracao' => true,
         'data_cancelamento' => true,
         'data_finalizacao' => true,
-        'situacao' => true,
         'obs' => true,
         'cliente_id' => true,
         'carro_id' => true,
@@ -51,11 +50,11 @@ class OrdensDeServico extends Entity
         'faturamento' => true
     ];
 
-    protected $_virtual = [''];
+    protected $_virtual = ['estado']; //Precisei colocar para aprecer em Sevicos->OrdensDeServico...
 
     
     //Virtuals
-    protected function _getSituacao()
+    protected function _getEstado()
     {
         $situacao = $this->_properties['situacao'];
         $estados = EstadosOs::estados();

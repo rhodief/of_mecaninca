@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Cache\Cache;
+use App\Utils\EstadosItensServico;
 
 /**
  * Setores Controller
@@ -109,16 +110,51 @@ class SetoresController extends AppController
 
 
     public function dashboard(){
+
         $user = Cache::read('User.user');
         if(!$user['user']){
-            $this->Flash->error(__('Não foi possível recurar Usuário - Cache...'));
+            $this->Flash->error(__('Não foi possível recuperar Usuário - Cache...'));
             return $this->redirect(['controller'=>'pages', 'action' => 'display']);
         }
         $setor_id = $user['user']['tecnico']['setor_id'];
-        debug($setor_id);
-        $setor = $this->Setores->get($setor_id, ['contain'=>['Servicos', 'Servicos.ItensDeServico']]);
-        debug($setor);exit;
-        
-        
+        $setor = $this->Setores->get($setor_id, ['contain'=>'Servicos']);
+
+        $map = function($n){
+            return $n->id;
+        };
+
+        $servicos = $this->Setores->Servicos->ItensDeServico->find()->where(['servico_id IN'=> array_map($map, $setor->servicos)])->contain(['Servicos', 'OrdensDeServico.Carros']);
+
+        $this->set(compact('setor', 'servicos'));
     }
+
+    public function executar($id = null){
+        $this->request->allowMethod(['post']);
+        $servico = $this->Setores->Servicos->ItensDeServico->get($id);
+        $servico->situacao = EstadosItensServico::setEmExecucao();
+        $servico->dirty(true);
+        if ($this->Setores->Servicos->ItensDeServico->save($servico)) {
+            $this->Flash->success(__('Serviço em Execução'));
+        } else {
+            $this->Flash->error(__('Não foi possível colocar o Serviço em Execução'));
+        }
+
+        return $this->redirect(['action' => 'dashboard']);
+    }
+
+    public function finalizar($id = null){
+        $this->request->allowMethod(['post']);
+        $servico = $this->Setores->Servicos->ItensDeServico->get($id);
+        $servico->situacao = EstadosItensServico::setFinalizado();
+        $servico->dirty(true);
+        if ($this->Setores->Servicos->ItensDeServico->save($servico)) {
+            $this->Flash->success(__('Serviço em Finalizado'));
+        } else {
+            $this->Flash->error(__('Não foi possível Finalizado'));
+        }
+
+        $this->redirect(['controller'=>'OrdensDeServico', 'action'=>'verificarFinalizacao', $servico->ordem_servico_id]);
+    }
+
+    
 }
