@@ -57,7 +57,7 @@ $cakeDescription = 'Chave de Rodas';
               <ul class="list-unstyled">
                 <li><a href="<?= $this->Url->Build(['controller'=>'clientes', 'action'=>'index']) ?>" class="text-white">Clientes</a></li>
                 <li><a href="<?= $this->Url->Build(['controller'=>'setores', 'action'=>'index']) ?>" class="text-white">Setores</a></li>
-                <li><a href="<?= $this->Url->Build(['pecas'=>'pecas', 'action'=>'index']) ?>" class="text-white">Peças</a></li>
+                <li><a href="<?= $this->Url->Build(['controller'=>'pecas', 'action'=>'index']) ?>" class="text-white">Peças</a></li>
                 <li><a href="<?= $this->Url->Build(['controller'=>'servicos', 'action'=>'index']) ?>" class="text-white">Serviços</a></li>
                 <li><a href="<?= $this->Url->Build(['controller'=>'carros', 'action'=>'index']) ?>" class="text-white">Carros</a></li>
                 <li><a href="<?= $this->Url->Build(['controller'=>'funcionarios', 'action'=>'index']) ?>" class="text-white">Funcionários</a></li>
