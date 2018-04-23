@@ -1,5 +1,15 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
+    #Issue Authorization header...
+    #RewriteCond %{HTTP:Authorization} ^(.*)
+    #RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
+
+    ######## Ativar as 3 linhas Abaixo quando colocar em produção ##################
+    RewriteBase /
+    RewriteCond %{HTTP:X-Forwarded-Proto} !https 
+    RewriteRule ^(.*)$ https://ofmecanica.herokuapp.com/$1 [R,L]
+    ############ Ativar as 3 linhas acima quando colocar em produção ###########
+
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
