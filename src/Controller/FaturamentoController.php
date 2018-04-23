@@ -65,10 +65,12 @@ class FaturamentoController extends AppController
             }
             $this->Flash->error(__('Faturamento não Pôde Ser Salvo'));
         }
-        $ordemDeServico = $this->Faturamento->OrdensDeServico->get($id, ['contain'=>['Carros', 'Clientes', 'Servicos.Setores']]);
+        $ordemDeServico = $this->Faturamento->OrdensDeServico->get($id, ['contain'=>['Carros', 'Clientes', 'Servicos.Setores', 'Pecas']]);
+
         if(!$ordemDeServico){
             debug('Os não encontrada');exit;
         }
+        
         $calculo = new CalcularServicos($ordemDeServico->servicos, $ordemDeServico->pecas);
         $valores = $calculo->calcular();
         

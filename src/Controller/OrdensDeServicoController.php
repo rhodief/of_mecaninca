@@ -95,12 +95,13 @@ class OrdensDeServicoController extends AppController
             $data['data_abertura'] = $currentDate;
             $data['data_alteracao'] = $currentDate;
             $data['situacao'] = EstadosOs::setAguardando();
-            
             $ordensDeServico = $this->OrdensDeServico->patchEntity($ordensDeServico, $data);
-            if ($this->OrdensDeServico->save($ordensDeServico)) {
+            
+            $result = $this->OrdensDeServico->save($ordensDeServico);
+            if ($result) {
                 $this->Flash->success(__('Ordem de Serviço Salva com Sucesso'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'view', $result->id]);
             }
             $this->Flash->error(__('Ordem de Serviço não pode ser salva'));
             debug($ordensDeServico->errors());

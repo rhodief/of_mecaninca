@@ -18,17 +18,18 @@
       <th scope="row">Nome</th>
       <td><?= $funcionario->nome ?></td>
     </tr>
+    
     <tr>
       <th scope="row">CPF</th>
       <td><?= $funcionario->cpf ?></td>
     </tr>
     <tr>
-      <th scope="row">Atendente</th>
-      <td><?= $funcionario->has('atendente') ? $this->Html->link($funcionario->atendente->cargo, ['controller' => 'Atendentes', 'action' => 'view', $funcionario->atendente->id]) : $this->Html->link('Não. Torná-lo atendente?', ['controller' => 'Atendentes', 'action' => 'add', $funcionario->id]) ?></td>
+      <th scope="row">Atendente Matrícula</th>
+      <td><?= $funcionario->has('atendente') ? $this->Html->link('ATE'.$funcionario->id, ['controller' => 'Atendentes', 'action' => 'view', $funcionario->atendente->id]) : $this->Html->link('Não. Torná-lo atendente?', ['controller' => 'Atendentes', 'action' => 'add', $funcionario->id]) ?></td>
     </tr>
     <tr>
-      <th scope="row">Técnico</th>
-      <td><?= $funcionario->has('tecnico') ? $this->Html->link($funcionario->tecnico->funcao, ['controller' => 'Tecnicos', 'action' => 'view', $funcionario->tecnico->id]) : $this->Html->link('Não. Torná-lo Técnico?', ['controller' => 'Tecnicos', 'action' => 'add', $funcionario->id]) ?></td>
+      <th scope="row">Técnico Matrícula</th>
+      <td><?= $funcionario->has('tecnico') ? $this->Html->link('TEC'.$funcionario->id, ['controller' => 'Tecnicos', 'action' => 'view', $funcionario->tecnico->id]) : $this->Html->link('Não. Torná-lo Técnico?', ['controller' => 'Tecnicos', 'action' => 'add', $funcionario->id]) ?></td>
     </tr>
     <tr>
       <th scope="row">Data de Admissão</th>

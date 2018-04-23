@@ -72,7 +72,7 @@
   <tbody>
       <?php foreach ($cliente->ordens_de_servico as $os):?>
     <tr>
-      <th scope="row"><span class="badge badge-pill badge-warning"><?= $os->situacao ?></span></th>
+      <th scope="row"><span class="badge badge-pill badge-warning"><?= $os->estado ?></span></th>
       <td> <?= $os->carro->marca . ' ' . $os->carro->modelo . ' ' .  $os->carro->placa ?> </td>
       <td><?= $os->obs ?></td>
       <td><?= $os->data_abertura ?></td>

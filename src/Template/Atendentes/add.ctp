@@ -1,26 +1,24 @@
 <?php
 /**
  * @var \App\View\AppView $this
- * @var \App\Model\Entity\Atendente $atendente
+ * @var \App\Model\Entity\Peca $peca
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Atendentes'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Funcionarios'), ['controller' => 'Funcionarios', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Funcionario'), ['controller' => 'Funcionarios', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="atendentes form large-9 medium-8 columns content">
-    <?= $this->Form->create($atendente) ?>
-    <fieldset>
-        <legend><?= __('Add Atendente') ?></legend>
-        <?php
-            echo $this->Form->control('funcionario_id', ['options' => $funcionarios]);
-            echo $this->Form->control('cargo');
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
+
+<div class="d-flex">
+  <div class="mr-auto p-2"><h1> <?= $funcionario->nome ?> </h1></div>
+  <div class="p-2"><a href="<?= $this->Url->Build(['controller'=>'functionarios', 'action'=>"view", $funcionario->id]) ?>" class="btn btn-secondary active" role="button" aria-pressed="true">Voltar</a></div>
 </div>
+
+<?= $this->Form->create($atendente) ?>
+<div class="form-group">
+    <label for="valor-id">Função</label>
+    <?= $this->Form->text('cargo', ['id'=>'valor-id', 'class'=>'form-control']) ?>
+    <small id="emailHelp" class="form-text text-muted"></small>
+</div>
+
+<div class="form-group">
+  <?= $this->Form->button(__('Salvar'), ['class'=>'btn btn-primary']) ?>
+  </div>
+<?= $this->Form->end() ?>
+

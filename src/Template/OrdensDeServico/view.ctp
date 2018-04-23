@@ -78,7 +78,7 @@ $totalPecas = 0;
   <div class="mr-auto p-2"><h1>Serviços</h1></div>
   <div class="p-2"><a href="<?= $this->Url->Build(['controller'=>'servicos', 'action'=>"index"]) ?>" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Todos os Serviços</a></div>
 </div>
-<?php if($ordensDeServico->situacao == 2){  ?>
+<?php if($ordensDeServico->situacao == 1){  ?>
 <?= $this->Form->create(null, ['class'=>'form-row']) ?>
 <div class="form-group col-md-8">
         <?= $this->Form->text('s_servicos', ['id'=>'s-servico', 'class'=>'form-control form-control-lg', 'placeholder'=>'Pesquisa de Serviços']); ?>
@@ -147,7 +147,7 @@ $totalPecas = 0;
   <div class="p-2"><a href="<?= $this->Url->Build(['controller'=>'pecas', 'action'=>"index"]) ?>" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Todos as Peças</a></div>
 </div>
 
-<?php if($ordensDeServico->situacao == 2){  ?>
+<?php if($ordensDeServico->situacao == 1){  ?>
 <?= $this->Form->create(null, ['class'=>'form-row']) ?>
 <div class="form-group col-md-8">
         <?= $this->Form->text('s_peca', ['id'=>'s-peca', 'class'=>'form-control form-control-lg', 'placeholder'=>'Pesquisa de Serviços']); ?>
@@ -173,7 +173,6 @@ $totalPecas = 0;
       <th scope="col">Quantidade</th>
       <th scope="col">Valor</th>
       <th scope="col">Total Unit</th>
-      <th scope="col">Status</th>
       <th scope="col">Ações</th>
       
     </tr>
@@ -190,7 +189,6 @@ $totalPecas = 0;
       <td> <?= $peca->_joinData->quantidade ?> </td>
       <td> <?= $peca->valor ?> </td>
       <td> <?= $subPecas ?> </td>
-      <td><span class="badge badge-pill badge-warning">Finalizado<?= $peca->status ?></span></td>
       <td><a href="<?= $this->Url->Build(['controller'=>'pecas', 'action'=>"view", $peca->_joinData->id]) ?>" class="btn btn-primary" role="button" aria-pressed="true">Detalhes</a></td>
     </tr>
 <?php endforeach; ?>
@@ -215,7 +213,7 @@ $totalPecas = 0;
     <div class="p-2"><h1><span class="badge badge-pill badge-success">Total: <?= $total + $totalPecas  ?></span></h1></div>
   <?php }  ?>
 
-  <?php if($ordensDeServico->situacao == 3){  ?>
+  <?php if($ordensDeServico->situacao == 3 && !$ordensDeServico->has('faturamento')){  ?>
     <a href="<?= $this->Url->Build(['controller'=>'faturamento', 'action'=>"add", $ordensDeServico->id]) ?>" class="btn btn-success" role="button" aria-pressed="true">Pagamento</a>
     </div>
     <div class="p-2"><h1><span class="badge badge-pill badge-success">Total: <?= $total + $totalPecas  ?></span></h1></div>

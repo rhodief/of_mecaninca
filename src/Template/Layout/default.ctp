@@ -53,8 +53,15 @@ $cakeDescription = 'Chave de Rodas';
         <div class="container">
           <div class="row">
             <div class="col-sm-8 col-md-7 py-4">
-              <h4 class="text-white">About</h4>
-              <p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
+              <h4 class="text-white">MENU</h4>
+              <ul class="list-unstyled">
+                <li><a href="<?= $this->Url->Build(['controller'=>'clientes', 'action'=>'index']) ?>" class="text-white">Clientes</a></li>
+                <li><a href="<?= $this->Url->Build(['controller'=>'setores', 'action'=>'index']) ?>" class="text-white">Setores</a></li>
+                <li><a href="<?= $this->Url->Build(['pecas'=>'funcionarios', 'action'=>'index']) ?>" class="text-white">Peças</a></li>
+                <li><a href="<?= $this->Url->Build(['controller'=>'servicos', 'action'=>'index']) ?>" class="text-white">Serviços</a></li>
+                <li><a href="<?= $this->Url->Build(['controller'=>'carros', 'action'=>'index']) ?>" class="text-white">Carros</a></li>
+                <li><a href="<?= $this->Url->Build(['controller'=>'funcionarios', 'action'=>'index']) ?>" class="text-white">Funcionários</a></li>
+              </ul>
             </div>
             <div class="col-sm-4 offset-md-1 py-4">
               <h4 class="text-white">Configurações</h4>

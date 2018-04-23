@@ -33,6 +33,12 @@ class CalcularServicos{
 
     private function subtotalPecas(){
         $subtotal = 0;
+        foreach($this->pecas as $p){
+            $valor = $p->valor;
+            $quantidade = $p->_joinData->quantidade;
+            $subtotal += $valor * $quantidade;
+        }
+        
         $this->valores['subtotal_pecas'] = $subtotal;
     }
 

@@ -123,7 +123,7 @@ class SetoresController extends AppController
             return $n->id;
         };
 
-        $servicos = $this->Setores->Servicos->ItensDeServico->find()->where(['servico_id IN'=> array_map($map, $setor->servicos), 'ItensDeServico.situacao' => 2])->contain(['Servicos', 'OrdensDeServico.Carros']);
+        $servicos = $this->Setores->Servicos->ItensDeServico->find()->where(['servico_id IN'=> array_map($map, $setor->servicos), 'ItensDeServico.situacao <' => 3])->contain(['Servicos', 'OrdensDeServico.Carros']);
 
         $this->set(compact('setor', 'servicos'));
     }

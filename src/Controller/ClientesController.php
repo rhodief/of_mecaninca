@@ -82,7 +82,7 @@ class ClientesController extends AppController
                         $this->Clientes->PessoasFisicas->save($pf);
                     }
                     $this->Flash->success(__('Cliente salvo com Sucesso!.'));
-                    return $this->redirect(['action' => 'index']);
+                    return $this->redirect(['action' => 'view', $result->id]);
                 }
             }
             $this->Flash->error(__('Cliente não foi salvo. Tente novamente.'));

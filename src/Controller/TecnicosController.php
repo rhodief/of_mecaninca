@@ -49,21 +49,23 @@ class TecnicosController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($id = null)
     {
         $tecnico = $this->Tecnicos->newEntity();
         if ($this->request->is('post')) {
-            $tecnico = $this->Tecnicos->patchEntity($tecnico, $this->request->getData());
+            $data = $this->request->getData();
+            $data['funcionario_id'] = $id;
+            $tecnico = $this->Tecnicos->patchEntity($tecnico, $data);
             if ($this->Tecnicos->save($tecnico)) {
-                $this->Flash->success(__('The tecnico has been saved.'));
+                $this->Flash->success(__('Técnico Salvo.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['controller'=>'funcionarios', 'action' => 'view', $id]);
             }
-            $this->Flash->error(__('The tecnico could not be saved. Please, try again.'));
+            $this->Flash->error(__('Técnico não pôde ser salvo'));
         }
-        $funcionarios = $this->Tecnicos->Funcionarios->find('list', ['limit' => 200]);
+        $funcionario = $this->Tecnicos->Funcionarios->get($id);
         $setores = $this->Tecnicos->Setores->find('list', ['limit' => 200]);
-        $this->set(compact('tecnico', 'funcionarios', 'setores'));
+        $this->set(compact('tecnico', 'funcionario', 'setores'));
     }
 
     /**

@@ -56,9 +56,9 @@ class FuncionariosController extends AppController
             $funcionario = $this->Funcionarios->patchEntity($funcionario, $this->request->getData());
             $result = $this->Funcionarios->save($funcionario);
             if ($result) {
-                $this->Flash->success(__('The funcionario has been saved.'));
+                $this->Flash->success(__('funcionário Criado'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'view', $result->id]);
             }
             //debug($funcionario->errors());
             

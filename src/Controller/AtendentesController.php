@@ -49,20 +49,21 @@ class AtendentesController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($id = null)
     {
         $atendente = $this->Atendentes->newEntity();
         if ($this->request->is('post')) {
-            $atendente = $this->Atendentes->patchEntity($atendente, $this->request->getData());
+            $data = $this->request->getData();
+            $data['funcionario_id'] = $id;
+            $atendente = $this->Atendentes->patchEntity($atendente, $data);
             if ($this->Atendentes->save($atendente)) {
-                $this->Flash->success(__('The atendente has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+                $this->Flash->success(__('Atendente Salvo!.'));
+                return $this->redirect(['controller'=>'funcionarios', 'action' => 'view', $id]);
             }
-            $this->Flash->error(__('The atendente could not be saved. Please, try again.'));
+            $this->Flash->error(__('Atendente Não Foi Salvo'));
         }
-        $funcionarios = $this->Atendentes->Funcionarios->find('list', ['limit' => 200]);
-        $this->set(compact('atendente', 'funcionarios'));
+        $funcionario = $this->Atendentes->Funcionarios->get($id);
+        $this->set(compact('atendente', 'funcionario'));
     }
 
     /**
