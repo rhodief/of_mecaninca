@@ -33,6 +33,7 @@ class Setor extends Entity
         'created' => true,
         'modified' => true,
         'servicos' => true,
-        'tecnicos' => true
+        'tecnicos' => true,
+        'codigo' => true
     ];
 }
